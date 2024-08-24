@@ -7,138 +7,36 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SquigglyLines from '../components/SquigglyLines';
 import { Testimonials } from '../components/Testimonials';
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Slider } from "@/components/ui/slider"
-import { UploadIcon, ImageIcon, WandIcon } from 'lucide-react'
 
-const FaceRestorationDemo: React.FC = () => {
-  const [image, setImage] = useState<string | null>(null)
-  const [processedImage, setProcessedImage] = useState<string | null>(null)
-  const [finalImage, setFinalImage] = useState<string | null>(null)
-  const [levels, setLevels] = useState([128])
+const Home: NextPage = () => {
+  const [image, setImage] = useState<string | null>(null);
+  const [processedImage, setProcessedImage] = useState<string | null>(null);
+  const [finalImage, setFinalImage] = useState<string | null>(null);
+  const [levels, setLevels] = useState(128);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
+    const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => setImage(e.target?.result as string)
-      reader.readAsDataURL(file)
+      const reader = new FileReader();
+      reader.onload = (e) => setImage(e.target?.result as string);
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   const processImage = () => {
     // Simulate background removal and GFPGAN processing
     setTimeout(() => {
-      setProcessedImage('/placeholder.svg?height=300&width=300')
-      applyGrayscaleAndLevels()
-    }, 1500)
-  }
+      setProcessedImage('/placeholder.svg?height=300&width=300');
+      applyGrayscaleAndLevels();
+    }, 1500);
+  };
 
   const applyGrayscaleAndLevels = () => {
     // In a real scenario, this would apply grayscale and levels adjustment
     // Here we're just simulating the process with a placeholder
-    setFinalImage('/placeholder.svg?height=300&width=300')
-  }
+    setFinalImage('/placeholder.svg?height=300&width=300');
+  };
 
-  return (
-    <Card className="w-full max-w-3xl mx-auto mt-8">
-      <CardHeader>
-        <CardTitle>Face Restoration Demo</CardTitle>
-        <CardDescription>Upload an image to see the face restoration process in action</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex justify-center space-x-4">
-          <Card className="w-1/3">
-            <CardHeader>
-              <CardTitle className="text-sm">Original</CardTitle>
-            </CardHeader>
-            <CardContent className="flex items-center justify-center h-[300px]">
-              {image ? (
-                <img src={image} alt="Original" className="max-w-full max-h-full object-contain" />
-              ) : (
-                <ImageIcon className="w-16 h-16 text-muted-foreground" />
-              )}
-            </CardContent>
-          </Card>
-          <Card className="w-1/3">
-            <CardHeader>
-              <CardTitle className="text-sm">Processed</CardTitle>
-            </CardHeader>
-            <CardContent className="flex items-center justify-center h-[300px]">
-              {processedImage ? (
-                <img src={processedImage} alt="Processed" className="max-w-full max-h-full object-contain" />
-              ) : (
-                <WandIcon className="w-16 h-16 text-muted-foreground" />
-              )}
-            </CardContent>
-          </Card>
-          <Card className="w-1/3">
-            <CardHeader>
-              <CardTitle className="text-sm">Final</CardTitle>
-            </CardHeader>
-            <CardContent className="flex items-center justify-center h-[300px]">
-              {finalImage ? (
-                <img src={finalImage} alt="Final" className="max-w-full max-h-full object-contain" />
-              ) : (
-                <ImageIcon className="w-16 h-16 text-muted-foreground" />
-              )}
-            </CardContent>
-          </Card>
-        </div>
-        <div className="space-y-2">
-          <Button onClick={() => document.getElementById('fileInput')?.click()} className="w-full">
-            <UploadIcon className="w-4 h-4 mr-2" />
-            Upload Image
-          </Button>
-          <input
-            id="fileInput"
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="hidden"
-          />
-          <Button onClick={processImage} className="w-full" disabled={!image}>
-            <WandIcon className="w-4 h-4 mr-2" />
-            Process Image
-          </Button>
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="levels" className="text-sm font-medium">
-            Grayscale Levels: {levels[0]}
-          </label>
-          <Slider
-            id="levels"
-            min={0}
-            max={255}
-            step={1}
-            value={levels}
-            onValueChange={setLevels}
-            className="w-full"
-          />
-        </div>
-        <div className="prose prose-sm max-w-none">
-          <h3>How it works:</h3>
-          <ol>
-            <li>Upload your image using the "Upload Image" button.</li>
-            <li>Click "Process Image" to start the face restoration process.</li>
-            <li>Background removal is simulated (would require additional service integration).</li>
-            <li>GFPGAN model processes the image to restore facial features.</li>
-            <li>Grayscale conversion is applied with adjustable levels.</li>
-            <li>The final restored image is displayed.</li>
-          </ol>
-          <p>
-            This demo uses placeholder images. In a real implementation, you would integrate with
-            Replicate's API to use the GFPGAN model, implement background removal, and apply
-            grayscale conversion with levels adjustment.
-          </p>
-        </div>
-      </CardContent>
-    </Card>
-  )
-}
-
-const Home: NextPage = () => {
   return (
     <div className='flex max-w-6xl mx-auto flex-col items-center justify-center py-2 min-h-screen'>
       <Head>
@@ -211,7 +109,98 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-        <FaceRestorationDemo />
+        
+        {/* Face Restoration Demo */}
+        <div className="w-full max-w-3xl mx-auto mt-8 border rounded-lg p-6">
+          <h2 className="text-2xl font-bold mb-4">Face Restoration Demo</h2>
+          <p className="mb-4">Upload an image to see the face restoration process in action</p>
+          <div className="flex justify-center space-x-4 mb-4">
+            <div className="w-1/3 border rounded-lg p-4">
+              <h3 className="text-lg font-semibold mb-2">Original</h3>
+              <div className="h-[300px] flex items-center justify-center">
+                {image ? (
+                  <img src={image} alt="Original" className="max-w-full max-h-full object-contain" />
+                ) : (
+                  <span className="text-gray-400">No image uploaded</span>
+                )}
+              </div>
+            </div>
+            <div className="w-1/3 border rounded-lg p-4">
+              <h3 className="text-lg font-semibold mb-2">Processed</h3>
+              <div className="h-[300px] flex items-center justify-center">
+                {processedImage ? (
+                  <img src={processedImage} alt="Processed" className="max-w-full max-h-full object-contain" />
+                ) : (
+                  <span className="text-gray-400">Not processed yet</span>
+                )}
+              </div>
+            </div>
+            <div className="w-1/3 border rounded-lg p-4">
+              <h3 className="text-lg font-semibold mb-2">Final</h3>
+              <div className="h-[300px] flex items-center justify-center">
+                {finalImage ? (
+                  <img src={finalImage} alt="Final" className="max-w-full max-h-full object-contain" />
+                ) : (
+                  <span className="text-gray-400">Not processed yet</span>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <div>
+              <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+              />
+              <button 
+                onClick={() => document.getElementById('fileInput')?.click()} 
+                className="w-full bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600 transition duration-300"
+              >
+                Upload Image
+              </button>
+            </div>
+            <button 
+              onClick={processImage} 
+              className="w-full bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600 transition duration-300"
+              disabled={!image}
+            >
+              Process Image
+            </button>
+            <div>
+              <label htmlFor="levels" className="block text-sm font-medium text-gray-700 mb-1">
+                Grayscale Levels: {levels}
+              </label>
+              <input
+                type="range"
+                id="levels"
+                min={0}
+                max={255}
+                value={levels}
+                onChange={(e) => setLevels(Number(e.target.value))}
+                className="w-full"
+              />
+            </div>
+          </div>
+          <div className="mt-4 text-sm text-gray-600">
+            <h3 className="font-semibold">How it works:</h3>
+            <ol className="list-decimal list-inside">
+              <li>Upload your image using the "Upload Image" button.</li>
+              <li>Click "Process Image" to start the face restoration process.</li>
+              <li>Background removal is simulated (would require additional service integration).</li>
+              <li>GFPGAN model processes the image to restore facial features.</li>
+              <li>Grayscale conversion is applied with adjustable levels.</li>
+              <li>The final restored image is displayed.</li>
+            </ol>
+            <p className="mt-2">
+              This demo uses placeholder images. In a real implementation, you would integrate with
+              Replicate's API to use the GFPGAN model, implement background removal, and apply
+              grayscale conversion with levels adjustment.
+            </p>
+          </div>
+        </div>
       </main>
       <Testimonials />
       <Footer />
