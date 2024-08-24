@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "vercel-build": "prisma generate && next build",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "install-dependencies": "npm install && npm ls har-validator request uuid && npm audit fix && npm install uuid@^8.3.2 && npm install axios"
   },
   "dependencies": {
     "@bytescale/upload-widget-react": "^4.9.0",
@@ -16,6 +17,7 @@
     "@tensorflow/tfjs": "^3.21.0",
     "@upstash/ratelimit": "^0.3.10",
     "@upstash/redis": "^1.19.1",
+    "axios": "^1.5.0", // Added axios as a dependency
     "next": "latest",
     "next-auth": "^4.20.1",
     "next-plausible": "^3.11.3",
