@@ -17,7 +17,7 @@
     "@tensorflow/tfjs": "^3.21.0",
     "@upstash/ratelimit": "^0.3.10",
     "@upstash/redis": "^1.19.1",
-    "axios": "^1.5.0", // Added axios as a dependency
+    "axios": "^1.5.0", 
     "next": "latest",
     "next-auth": "^4.20.1",
     "next-plausible": "^3.11.3",
